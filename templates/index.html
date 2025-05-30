@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario de Farmacia</title>
+</head>
+<body>
+    <h1>Inventario de Insumos</h1>
+    <a href="/agregar">Agregar nuevo insumo</a>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Código</th>
+            <th>Subíndice</th>
+            <th>Descripción</th>
+            <th>Cantidad</th>
+            <th>Acciones</th>
+        </tr>
+        {% for insumo in insumos %}
+        <tr>
+            <td>{{ insumo[0] }}</td>
+            <td>{{ insumo[1] }}</td>
+            <td>{{ insumo[2] }}</td>
+            <td>{{ insumo[3] }}</td>
+            <td>{{ insumo[4] }}</td>
+            <td>
+                <a href="/modificar/{{ insumo[0] }}/entrada">➕</a>
+                <a href="/modificar/{{ insumo[0] }}/salida">➖</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
