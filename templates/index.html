@@ -5,8 +5,10 @@
     <title>Inventario de Farmacia</title>
 </head>
 <body>
-    <h1>Inventario de Insumos</h1>
+    <h1>Inventario de Insumos Deposito de Farmacia</h1>
     <a href="/agregar">Agregar nuevo insumo</a>
+    <a href="/eliminar/{{ insumo[0] }}" onclick="return confirm('¿Estás seguro que deseas eliminar este insumo?');">Eliminar</a>
+
     <table border="1">
         <tr>
             <th>ID</th>
@@ -26,6 +28,7 @@
             <td>
                 <a href="/modificar/{{ insumo[0] }}/entrada">➕</a>
                 <a href="/modificar/{{ insumo[0] }}/salida">➖</a>
+                <a href="/eliminar/{{ insumo[0] }}" onclick="return confirm('¿Eliminar este insumo?');">🗑️</a>
             </td>
         </tr>
         {% endfor %}
