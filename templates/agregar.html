@@ -2,26 +2,50 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Agregar Insumo</title>
+    <title>Agregar nuevo insumo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-    <h1>Agregar nuevo insumo</h1>
-    <form method="POST">
-        <label for="codigo">Código:</label>
-        <input type="text" name="codigo" required><br>
+    <div class="container mt-5">
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h2 class="card-title mb-4">➕ Agregar nuevo insumo</h2>
 
-        <label for="subindice">Subíndice:</label>
-        <input type="text" name="subindice" required><br>
+                <form method="post" action="/agregar">
+                    <div class="mb-3">
+                        <label for="codigo" class="form-label">Código:</label>
+                        <input type="text" class="form-control" id="codigo" name="codigo" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="subindice" class="form-label">Subíndice:</label>
+                        <input type="text" class="form-control" id="subindice" name="subindice" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción:</label>
+                        <input type="text" class="form-control" id="descripcion" name="descripcion" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cantidad" class="form-label">Cantidad:</label>
+                        <input type="number" class="form-control" id="cantidad" name="cantidad" min="0" required>
+                    </div>
 
-        <label for="descripcion">Descripción:</label>
-        <input type="text" name="descripcion" required><br>
+                    <button type="submit" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Agregar
+                    </button>
+                    <a href="/" class="btn btn-secondary ms-2">
+                        <i class="bi bi-arrow-left"></i> Volver al inventario
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
 
-        <label for="cantidad">Cantidad:</label>
-        <input type="number" name="cantidad" required><br>
-
-        <button type="submit">Agregar</button>
-    </form>
-    <br>
-    <a href="/">Volver al inventario</a>
+    <!-- Bootstrap JS (opcional si no usas JS interactivo) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </body>
 </html>
