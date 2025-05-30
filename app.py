@@ -93,7 +93,7 @@ def ver_palets():
         agrupado[insumo[5]].append(insumo)
     return render_template('palets.html', palets=agrupado)
     
-    @app.route('/palets/<nombre_palet>')
+@app.route('/palets/<nombre_palet>')
 def ver_palet_individual(nombre_palet):
     with sqlite3.connect(DB) as conn:
         insumos = conn.execute("SELECT * FROM insumos WHERE palet = ?", (nombre_palet,)).fetchall()
