@@ -14,7 +14,8 @@ def init_db():
                 codigo TEXT NOT NULL,
                 subindice TEXT NOT NULL,
                 descripcion TEXT NOT NULL,
-                cantidad INTEGER NOT NULL
+                cantidad INTEGER NOT NULL,
+                palet TEXT NOT NULL
             )
         """)
 
@@ -31,12 +32,14 @@ def agregar():
         subindice = request.form['subindice']
         descripcion = request.form['descripcion']
         cantidad = int(request.form['cantidad'])
+        palet = request.form['palet']
 
         with sqlite3.connect(DB) as conn:
-            conn.execute('INSERT INTO insumos (codigo, subindice, descripcion, cantidad) VALUES (?, ?, ?, ?)',
-                         (codigo, subindice, descripcion, cantidad))
+            conn.execute('INSERT INTO insumos (codigo, subindice, descripcion, cantidad, palet) VALUES (?, ?, ?, ?, ?)',
+                         (codigo, subindice, descripcion, cantidad, palet))
         return redirect('/')
     return render_template('agregar.html')
+
 @app.route('/eliminar/<int:id>')
 def eliminar(id):
     with sqlite3.connect(DB) as conn:
@@ -54,7 +57,7 @@ def modificar(id, accion):
 
 @app.route('/editar/<int:id>', methods=['GET', 'POST'])
 def editar(id):
-    conn = sqlite3.connect('insumos.db')
+    conn = sqlite3.connect(DB)
     cursor = conn.cursor()
 
     if request.method == 'POST':
@@ -62,12 +65,13 @@ def editar(id):
         subindice = request.form['subindice']
         descripcion = request.form['descripcion']
         cantidad = request.form['cantidad']
+        palet = request.form['palet']
 
         cursor.execute('''
             UPDATE insumos
-            SET codigo = ?, subindice = ?, descripcion = ?, cantidad = ?
+            SET codigo = ?, subindice = ?, descripcion = ?, cantidad = ?, palet = ?
             WHERE id = ?
-        ''', (codigo, subindice, descripcion, cantidad, id))
+        ''', (codigo, subindice, descripcion, cantidad, palet, id))
         conn.commit()
         conn.close()
         return redirect('/')
@@ -78,9 +82,7 @@ def editar(id):
 
     return render_template('editar.html', insumo=insumo)
 
-
 if __name__ == '__main__':
     init_db()
     port = int(os.environ.get("PORT", 5000)) 
     app.run(host='0.0.0.0', port=port)
-    
