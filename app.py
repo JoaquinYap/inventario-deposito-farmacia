@@ -37,6 +37,11 @@ def agregar():
                          (codigo, subindice, descripcion, cantidad))
         return redirect('/')
     return render_template('agregar.html')
+@app.route('/eliminar/<int:id>')
+def eliminar(id):
+    with sqlite3.connect(DB) as conn:
+        conn.execute('DELETE FROM insumos WHERE id = ?', (id,))
+    return redirect('/')
 
 @app.route('/modificar/<int:id>/<accion>')
 def modificar(id, accion):
