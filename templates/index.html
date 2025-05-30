@@ -1,4 +1,8 @@
-<title>Inventario de Insumos - Depósito de Farmacia</title>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Inventario de Insumos - Depósito de Farmacia</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
@@ -66,9 +70,9 @@
                     <td>{{ insumo[4] }}</td>
                     <td>{{ insumo[5] }}</td>
                     <td class="d-flex gap-2">
-                       <a href="/palets/{{ insumo[5] }}" class="btn btn-outline-primary">
+                        <a href="/palets/{{ insumo[5] }}" class="btn btn-outline-primary">
                             <i class="bi bi-box"></i> Ver Palet
-                         </a>
+                        </a>
                         <a href="/editar/{{ insumo[0] }}" class="btn btn-sm btn-warning">
                             <i class="bi bi-pencil-square"></i> Editar
                         </a>
@@ -89,10 +93,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
         const modoOscuroSwitch = document.getElementById('modoOscuro');
-        modoOscuroSwitch.addEventListener('change', function () {
-            document.body.classList.toggle('dark-mode');
-            document.getElementById('tablaInsumos').classList.toggle('table-dark-mode');
-        });
+
+        // Activar modo oscuro al cargar si está guardado
+        if (localStorage.getItem('modoOscuro') === 'true') {
+            document.body.classList.add('dark-mode');
+            document.getElementById('tablaInsumos')?.classList.add('table-dark-mode');
+            if (modoOscuroSwitch) modoOscuroSwitch.checked = true;
+        }
+
+        // Escuchar cambios
+        if (modoOscuroSwitch) {
+            modoOscuroSwitch.addEventListener('change', function () {
+                const activado = this.checked;
+                document.body.classList.toggle('dark-mode', activado);
+                document.getElementById('tablaInsumos')?.classList.toggle('table-dark-mode', activado);
+                localStorage.setItem('modoOscuro', activado);
+            });
+        }
 
         const buscador = document.getElementById('buscador');
         buscador.addEventListener('keyup', function () {
@@ -106,7 +123,5 @@
     </script>
 </body>
 </html>
-
-
 
 
