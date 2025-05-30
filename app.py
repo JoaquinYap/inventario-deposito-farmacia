@@ -82,6 +82,16 @@ def editar(id):
 
     return render_template('editar.html', insumo=insumo)
 
+@app.route('/palets')
+def ver_palets():
+    with sqlite3.connect(DB) as conn:
+        insumos = conn.execute("SELECT * FROM insumos").fetchall()
+    agrupado = defaultdict(list)
+    for insumo in insumos:
+        agrupado[insumo[5]].append(insumo)
+    return render_template('palets.html', palets=agrupado)
+
+
 if __name__ == '__main__':
     init_db()
     port = int(os.environ.get("PORT", 5000)) 
