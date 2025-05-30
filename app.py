@@ -52,6 +52,33 @@ def modificar(id, accion):
             conn.execute('UPDATE insumos SET cantidad = ? WHERE id = ?', (cantidad, id))
     return redirect('/')
 
+@app.route('/editar/<int:id>', methods=['GET', 'POST'])
+def editar(id):
+    conn = sqlite3.connect('insumos.db')
+    cursor = conn.cursor()
+
+    if request.method == 'POST':
+        codigo = request.form['codigo']
+        subindice = request.form['subindice']
+        descripcion = request.form['descripcion']
+        cantidad = request.form['cantidad']
+
+        cursor.execute('''
+            UPDATE insumos
+            SET codigo = ?, subindice = ?, descripcion = ?, cantidad = ?
+            WHERE id = ?
+        ''', (codigo, subindice, descripcion, cantidad, id))
+        conn.commit()
+        conn.close()
+        return redirect('/')
+
+    cursor.execute('SELECT * FROM insumos WHERE id = ?', (id,))
+    insumo = cursor.fetchone()
+    conn.close()
+
+    return render_template('editar.html', insumo=insumo)
+
+
 if __name__ == '__main__':
     init_db()
     port = int(os.environ.get("PORT", 5000)) 
